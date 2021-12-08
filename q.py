@@ -1,6 +1,8 @@
 from sodapy import Socrata
 from dotenv import load_dotenv
+import argparse
 import os
+
 load_dotenv()
 
 API_KEY = os.environ.get("API_KEY")
@@ -20,16 +22,16 @@ def socrata():
         pdb.set_trace()
 
 
-def gen_django_field():
+def gen_django_field(inpfile):
     """
     docstring
     """
     buffer = ''
-    with open('./fields.txt', 'rt', newline='') as infile:
+    with open(inpfile, 'rt', newline='') as infile:
         for idx, line in enumerate(infile.readlines()):
             line = line.strip(" \r\n\t")
             if (idx % 2) == 0:
-                right = f"models.CharField(_('{line}'), max_length=100, null=True, blank=True)"
+                right = f"models.IntegerField(_('{line}'), default=0)"
             else:
                 buffer += f"{line} = {right}\n"
 
@@ -37,4 +39,9 @@ def gen_django_field():
 
 
 if __name__ == "__main__":
-    socrata()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--genfields")
+    args = parser.parse_args()
+    if args.genfields:
+        gen_django_field(args.genfields)
+    # socrata()

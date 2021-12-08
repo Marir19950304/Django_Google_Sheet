@@ -37,11 +37,9 @@ class Command(BaseCommand):
         with Socrata("data.cityofnewyork.us", APP_TOKEN, API_KEY, API_SECRET) as client:
             while True:
                 complaints = client.get(
-                    "erm2-nwe9", where=f"created_date between '{start_date}' AND '{end_date}' AND complaint_type like '%{complaint_type}%' AND descriptor like '%{descriptor}%'", limit=limit, offset=offset)
-
-                print(complaints[0])
-
+                    "erm2-nwe9", where=f"created_date between '{start_date}' AND '{end_date}' AND complaint_type like '%{complaint_type}%' AND descriptor like '%{descriptor}%' AND bbl IS NOT NULL", limit=limit, offset=offset)
                 if not complaints or len(complaints) <= 0:
+                    print("No items found!")
                     break
 
                 for complaint in complaints:
@@ -55,7 +53,9 @@ class Command(BaseCommand):
                             "status": complaint['status'],
                             "incident_zip": complaint['incident_zip'],
                             "incident_address": complaint['incident_address'],
-                            "city": complaint['city']
+                            "city": complaint['city'],
+                            "step": 0,
+                            "bbl": complaint['bbl']
                         })
 
                 offset += limit
