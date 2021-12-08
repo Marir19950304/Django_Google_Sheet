@@ -53,7 +53,7 @@ class Command(BaseCommand):
                     obj, created = Complaint.objects.update_or_create(
                         unique_key=complaint['unique_key'], defaults={
                             "created_date": complaint['created_date'],
-                            "closed_date": complaint['closed_date'],
+                            "closed_date": complaint.get('closed_date'),
                             "agency": complaint['agency'],
                             "complaint_type": complaint['complaint_type'],
                             "descriptor": complaint['descriptor'],
