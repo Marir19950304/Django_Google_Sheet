@@ -1,3 +1,4 @@
+from datetime import timedelta
 from django.core.management.base import BaseCommand, CommandError
 from sodapy import Socrata
 from dotenv import load_dotenv
@@ -23,12 +24,18 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        limit = 200
+        limit = 400
         offset = 0
-        start_date = Criteria.objects.get(
-            name='start_date').date_value.astimezone(EST).strftime("%Y-%m-%d")
-        end_date = Criteria.objects.get(
-            name='end_date').date_value.astimezone(EST).strftime("%Y-%m-%d")
+
+        # start_date = Criteria.objects.get(
+        #     name='start_date').date_value.astimezone(EST).isoformat()[0:19]
+        # end_date = Criteria.objects.get(
+        #     name='end_date').date_value.astimezone(EST).isoformat()[0:19]
+        start_date = timezone.now().astimezone(
+            EST).replace(hour=0, minute=0).isoformat()
+        end_date = timezone.now().astimezone(
+            EST).replace(hour=23, minute=59).isoformat()
+        print("From {} to {}".format(start_date, end_date))
         complaint_type = Criteria.objects.get(
             name='complaint_type').text_value
         descriptor = Criteria.objects.get(
@@ -54,8 +61,8 @@ class Command(BaseCommand):
                             "incident_zip": complaint['incident_zip'],
                             "incident_address": complaint['incident_address'],
                             "city": complaint['city'],
-                            "step": 0,
-                            "bbl": complaint['bbl']
+                            "bbl": complaint['bbl'],
+                            "step": 0
                         })
 
                 offset += limit

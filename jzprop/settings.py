@@ -27,8 +27,7 @@ SECRET_KEY = 'django-insecure-e@7%c4@lm6jrb&wsla!t4)z87x6k=t%%6#x=b_4pvqnk=dby0z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['jzprop.tk', 'www.jzprop.tk']
-
+ALLOWED_HOSTS = ['jzprop.tk', 'www.jzprop.tk','127.0.0.1']
 
 # Application definition
 
