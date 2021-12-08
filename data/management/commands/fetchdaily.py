@@ -32,9 +32,9 @@ class Command(BaseCommand):
         # end_date = Criteria.objects.get(
         #     name='end_date').date_value.astimezone(EST).isoformat()[0:19]
         start_date = timezone.now().astimezone(
-            EST).replace(hour=0, minute=0).isoformat()
+            EST).replace(hour=0, minute=0).isoformat()[0:19]
         end_date = timezone.now().astimezone(
-            EST).replace(hour=23, minute=59).isoformat()
+            EST).replace(hour=23, minute=59).isoformat()[0:19]
         print("From {} to {}".format(start_date, end_date))
         complaint_type = Criteria.objects.get(
             name='complaint_type').text_value
