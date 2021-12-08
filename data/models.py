@@ -42,7 +42,7 @@ class Complaint(models.Model):
     created_date = models.CharField(
         _('Created Date'), max_length=100)
     closed_date = models.CharField(
-        _('Closed Date'), max_length=100)
+        _('Closed Date'), max_length=100, null=True, blank=True)
     agency = models.CharField(
         _('Agency'), max_length=100, null=True, blank=True)
     agency_name = models.CharField(
