@@ -4,10 +4,10 @@ server {
 
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {
-        root /root/jzprop;
+        root = /var/www/jzprop;
     }
     location /media/ {
-        root /root/jzprop;
+        root = /var/www/jzprop;
     }
     location / {
         include proxy_params;
