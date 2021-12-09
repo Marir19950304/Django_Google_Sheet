@@ -7,7 +7,7 @@ Type=forking
 User=www-data
 Group=www-data
 EnvironmentFile=/etc/conf.d/celery
-WorkingDirectory=/opt/celery
+WorkingDirectory=/var/www/jzprop
 ExecStart=/bin/sh -c '${CELERY_BIN} -A $CELERY_APP multi start $CELERYD_NODES \
     --pidfile=${CELERYD_PID_FILE} --logfile=${CELERYD_LOG_FILE} \
     --loglevel="${CELERYD_LOG_LEVEL}" $CELERYD_OPTS'

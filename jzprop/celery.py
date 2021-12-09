@@ -20,12 +20,3 @@ app.autodiscover_tasks()
 @app.task(bind=True)
 def debug_task(self):
     print(f'Request: {self.request!r}')
-
-
-app.conf.beat_schedule = {
-  'fetch_daily': {
-        'task': 'data.tasks.add',
-        'schedule': 30.0,
-        'args': (16, 16)
-    },
-}
