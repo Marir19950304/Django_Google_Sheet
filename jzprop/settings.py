@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-e@7%c4@lm6jrb&wsla!t4)z87x6k=t%%6#x=b_4pvqnk=dby0z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['jzprop.tk', 'www.jzprop.tk','127.0.0.1']
+ALLOWED_HOSTS = ['jzprop.tk', 'www.jzprop.tk', '127.0.0.1']
 
 # Application definition
 
@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'data.apps.DataConfig'
+    'data.apps.DataConfig',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +144,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Celery Configuration Options
+CELERY_TIMEZONE = "US/Eastern"
+CELERY_TASK_TIME_LIMIT = 60 * 60
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+
