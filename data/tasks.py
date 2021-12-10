@@ -119,5 +119,3 @@ def fetch_daily():
                     })
 
             offset += limit
-
-    fetch_related.apply_async(countdown=2)
