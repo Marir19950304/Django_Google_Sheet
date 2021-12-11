@@ -1,5 +1,6 @@
 from enum import unique
 from django.db import models
+from django.db.models.fields import CharField
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
@@ -35,8 +36,11 @@ class Criteria(models.Model):
 
 # Create your models here.
 class Complaint(models.Model):
-    timestamp = models.DateTimeField(
-        _("Timestamp"), auto_now=False, auto_now_add=True)
+    timestamp_created = models.DateTimeField(
+        _("Timestamp"), auto_now_add=True)
+    timestamp_modified = models.DateTimeField(
+        _("Timestamp"), auto_now=True)
+
     unique_key = models.CharField(
         _('Unique Key'), max_length=100, null=True, blank=True, unique=True)
     created_date = models.CharField(
@@ -131,6 +135,11 @@ class Complaint(models.Model):
 
 
 class Property(models.Model):
+    timestamp_created = models.DateTimeField(
+        _("Timestamp"), auto_now_add=True)
+    timestamp_modified = models.DateTimeField(
+        _("Timestamp"), auto_now=True)
+
     parid = models.CharField(_('PARID'), max_length=64)
     boro = models.CharField(_('BORO'), max_length=64, null=True, blank=True)
     block = models.CharField(_('BLOCK'), max_length=64, null=True, blank=True)
@@ -418,7 +427,6 @@ class Property(models.Model):
         _('OTHER_AREA_GROSS'), max_length=64, null=True, blank=True)
     reuc_description = models.TextField(
         _('REUC_DESCRIPTION'), null=True, blank=True)
-
     extracrdt = models.CharField(
         _('EXTRACRDT'), max_length=64, null=True, blank=True)
     pytaxflag = models.CharField(
@@ -431,13 +439,51 @@ class Property(models.Model):
         _('FINTAXFLAG'), max_length=64, null=True, blank=True)
     curtaxflag = models.CharField(
         _('CURTAXFLAG'), max_length=64, null=True, blank=True)
+    step = models.IntegerField(_("Step"), default=0)
 
     class Meta:
-        verbose_name = _("property")
-        verbose_name_plural = _("properties")
+        verbose_name = _("property assessment")
+        verbose_name_plural = _("property assessments")
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse("property_detail", kwargs={"pk": self.pk})
+
+
+class PropDocument(models.Model):
+    timestamp_created = models.DateTimeField(
+        _("Timestamp"), auto_now_add=True)
+    timestamp_modified = models.DateTimeField(
+        _("Timestamp"), auto_now=True)
+
+    document_id = CharField("Document Id", max_length=64)
+    borough = models.CharField(_('BORO'), max_length=64, null=True, blank=True)
+    block = models.CharField(_('BLOCK'), max_length=64, null=True, blank=True)
+    lot = models.CharField(_('LOT'), max_length=64, null=True, blank=True)
+    recorded_borough = models.CharField(
+        _('Recorded Borough'), max_length=64, null=True, blank=True)
+    doc_type = models.CharField(
+        _("DOC_TYPE"), max_length=64, null=True, blank=True)
+    document_date = models.CharField(
+        _('DOC.DATE'), max_length=64, null=True, blank=True)
+    document_amt = models.DecimalField(
+        _('DOC.AMOUNT'), default=0, max_digits=12, decimal_places=2)
+    recorded_datetime = models.CharField(
+        _('RECORDED / FILED'), max_length=64, null=True, blank=True)
+    percent_trans = models.CharField(
+        _('% TRANSFERRED'), max_length=64, null=True, blank=True)
+    good_through_date = models.CharField(
+        _('GOOD THROUGH DATE'), max_length=64, null=True, blank=True)
+    step = models.IntegerField(_("Step"), default=0)
+
+    class Meta:
+        verbose_name = _("document")
+        verbose_name_plural = _("documents")
+
+    def __str__(self):
+        return self.document_id
+
+    def get_absolute_url(self):
+        return reverse("propdoc_detail", kwargs={"pk": self.pk})

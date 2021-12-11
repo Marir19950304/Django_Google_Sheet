@@ -1,3 +1,4 @@
+import json
 from re import I
 from celery import Celery, shared_task
 from celery.schedules import crontab
@@ -7,6 +8,7 @@ from django.utils.timezone import timedelta
 from data.models import *
 import os
 from sodapy import Socrata
+from django.db.models import Count, Max
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -17,13 +19,63 @@ API_SECRET = os.environ.get("API_SECRET")
 EST = pytz.timezone("US/Eastern")
 
 
-def retain_latest_pvadtc():
+@shared_task
+def fetch_doc_details():
     """
     docstring
     """
+    dataset_code = 'bnx9-e6tj'
+    with Socrata("data.cityofnewyork.us", APP_TOKEN, API_KEY, API_SECRET) as client:
+        docs = PropDocument.objects.filter(step=0)[:50]
+        for d in docs:
+            details = client.get(
+                dataset_code, where="document_id='{}'".format(d.document_id))
+            if details and len(details) > 0:
+                detail = details[0]
+                PropDocument.objects.filter(id=d.id).update(
+                    recorded_borough=detail['recorded_borough'],
+                    doc_type=detail['doc_type'],
+                    document_date=detail['document_date'],
+                    document_amt=detail['document_amt'],
+                    recorded_datetime=detail['recorded_datetime'],
+                    percent_trans=detail['percent_trans'],
+                    good_through_date=detail['good_through_date']
+                )
+
+        PropDocument.objects.filter(
+            id__in=[d.id for d in docs]).update(step=1)
+
+
+@shared_task
+def fetch_documents():
+    """
+    docstring
+    """
+    # property legals
+    dataset_code = '8h5j-fqxa'
     for p in Property.objects.values('parid').annotate(Max('extracrdt')):
         Property.objects.filter(parid=p['parid']).exclude(
             extracrdt=p['extracrdt__max']).delete()
+
+    props = Property.objects.filter(step=0)[:50]
+    with Socrata("data.cityofnewyork.us", APP_TOKEN, API_KEY, API_SECRET) as client:
+        for prop in props:
+            while True:
+                legals = client.get(
+                    dataset_code, where="borough='{}' AND block='{}' AND lot='{}'".format(prop.boro, prop.block, prop.lot))
+                if not legals or len(legals) <= 0:
+                    break
+
+                for legal in legals:
+                    PropDocument.objects.update_or_create(
+                        document_id=legal['document_id'],
+                        defaults={
+                            "borough": legal['borough'],
+                            "block": legal['block'],
+                            "lot": legal['lot']
+                        }
+                    )
+    Property.objects.filter(id__in=[p.id for p in props]).update(step=1)
 
 
 @shared_task
@@ -80,8 +132,6 @@ def fetch_pvadtc():
         Complaint.objects.filter(
             pk__in=[c.id for c in complaints]).update(step=1)
         complaints = Complaint.objects.filter(step=0)[:50]
-
-    retain_latest_pvadtc()
 
 
 @shared_task

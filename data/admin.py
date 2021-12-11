@@ -24,4 +24,11 @@ class ComplaintAdmin(admin.ModelAdmin):
 @admin.register(Property)
 class PropertyAdmin(admin.ModelAdmin):
     list_display = ('parid', 'boro', 'block', 'lot', 'pymkttot', 'curmkttot', 'bldg_class', 'bld_story', 'units', 'lot_frt', 'lot_dep',
-                    'bld_frt', 'bld_dep', 'land_area', 'gross_sqft', 'owner', 'zoning', 'housenum_lo', 'housenum_hi', 'street_name', 'zip_code', 'corner')
+                    'bld_frt', 'bld_dep', 'land_area', 'gross_sqft', 'owner', 'zoning', 'housenum_lo', 'housenum_hi', 'street_name', 'zip_code', 'corner', 'step')
+    actions = [reset_step]
+
+
+@admin.register(PropDocument)
+class PropDocumentAdmin(admin.ModelAdmin):
+    list_display = ('document_id', 'borough', 'block', 'lot', 'recorded_borough', 'doc_type',
+                    'document_date', 'document_amt', 'recorded_datetime', 'percent_trans', 'good_through_date')
