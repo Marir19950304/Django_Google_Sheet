@@ -69,12 +69,12 @@ class Command(BaseCommand):
                             land_area=t['land_area'],
                             gross_sqft=t['gross_sqft'],
                             owner=t['owner'],
-                            zoning=t['zoning'],
+                            zoning=t.get('zoning'),
                             housenum_lo=t['housenum_lo'],
                             housenum_hi=t['housenum_hi'],
                             street_name=t['street_name'],
                             zip_code=t['zip_code'],
-                            corner=t['corner']
+                            corner=t.get('corner')
                         )
 
                     offset += limit
@@ -82,16 +82,3 @@ class Command(BaseCommand):
             Complaint.objects.filter(
                 pk__in=[c.id for c in complaints]).update(step=1)
             complaints = Complaint.objects.filter(step=0)[:50]
-
-            # for complaint in complaints:
-            #     Property.objects.filter(parid=complaint.bbl).delete()
-
-            #     for tax in taxes:
-            #         Property.objects.create(
-            #             parid=complaint.bbl,
-
-            #         )
-
-            #     processed_ids.add(complaint.id)
-
-            # Complaint.objects.filter(id__in=processed_ids).update(step=1)
