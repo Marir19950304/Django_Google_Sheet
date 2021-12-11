@@ -419,8 +419,8 @@ class Property(models.Model):
     reuc_description = models.TextField(
         _('REUC_DESCRIPTION'), null=True, blank=True)
 
-    extracrdt = models.DateTimeField(
-        _('EXTRACRDT'), null=True, blank=True)
+    extracrdt = models.CharField(
+        _('EXTRACRDT'), max_length=64, null=True, blank=True)
     pytaxflag = models.CharField(
         _('PYTAXFLAG'), max_length=64, null=True, blank=True)
     tentaxflag = models.CharField(

@@ -17,13 +17,20 @@ API_SECRET = os.environ.get("API_SECRET")
 EST = pytz.timezone("US/Eastern")
 
 
-@shared_task
-def fetch_related():
+def retain_latest_pvadtc():
+    """
+    docstring
+    """
+    for p in Property.objects.values('parid').annotate(Max('extracrdt')):
+        Property.objects.filter(parid=p['parid']).exclude(
+            extracrdt=p['extracrdt__max']).delete()
 
-    limit = 512
+
+@shared_task
+def fetch_pvadtc():
+    limit = 1000
     offset = 0
     dataset_code = '8y4t-faws'
-
     complaints = Complaint.objects.filter(step=0)[:50]
     while complaints and len(complaints) > 0:
         for c in complaints:
@@ -59,12 +66,13 @@ def fetch_related():
                         land_area=t['land_area'],
                         gross_sqft=t['gross_sqft'],
                         owner=t['owner'],
-                        zoning=t['zoning'],
+                        zoning=t.get('zoning'),
                         housenum_lo=t['housenum_lo'],
                         housenum_hi=t['housenum_hi'],
                         street_name=t['street_name'],
                         zip_code=t['zip_code'],
-                        corner=t['corner']
+                        corner=t.get('corner'),
+                        extracrdt=t.get('extracrdt')
                     )
 
                 offset += limit
@@ -72,6 +80,8 @@ def fetch_related():
         Complaint.objects.filter(
             pk__in=[c.id for c in complaints]).update(step=1)
         complaints = Complaint.objects.filter(step=0)[:50]
+
+    retain_latest_pvadtc()
 
 
 @shared_task
