@@ -8,7 +8,7 @@ from django.utils.timezone import timedelta
 from data.models import *
 import os
 from sodapy import Socrata
-from django.db.models import Count, Max
+from django.db.models import Count, Max, Min
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -53,9 +53,9 @@ def fetch_documents():
     """
     # property legals
     dataset_code = '8h5j-fqxa'
-    for p in Property.objects.values('parid').annotate(Max('extracrdt')):
+    for p in Property.objects.values('parid').annotate(Max('extracrdt'), Min('id')):
         Property.objects.filter(parid=p['parid']).exclude(
-            extracrdt=p['extracrdt__max']).delete()
+            extracrdt=p['extracrdt__max'], id=p['id__min']).delete()
 
     props = Property.objects.filter(step=0)[:50]
     with Socrata("data.cityofnewyork.us", APP_TOKEN, API_KEY, API_SECRET) as client:

@@ -23,7 +23,7 @@ class ComplaintAdmin(admin.ModelAdmin):
 
 @admin.register(Property)
 class PropertyAdmin(admin.ModelAdmin):
-    list_display = ('parid', 'boro', 'block', 'lot', 'pymkttot', 'curmkttot', 'bldg_class', 'bld_story', 'units', 'lot_frt', 'lot_dep',
+    list_display = ('parid', 'extracrdt', 'boro', 'block', 'lot', 'pymkttot', 'curmkttot', 'bldg_class', 'bld_story', 'units', 'lot_frt', 'lot_dep',
                     'bld_frt', 'bld_dep', 'land_area', 'gross_sqft', 'owner', 'zoning', 'housenum_lo', 'housenum_hi', 'street_name', 'zip_code', 'corner', 'step')
     actions = [reset_step]
 
