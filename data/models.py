@@ -88,7 +88,7 @@ class Complaint(models.Model):
         _('Resolution Action Updated Date'), max_length=100, null=True, blank=True)
     community_board1w = models.CharField(
         _('Community Board'), max_length=100, null=True, blank=True)
-    bbl = models.CharField(_('BBL'), max_length=100, null=True, blank=True)
+    bbl = models.CharField(_('BBL'), max_length=100, blank=True, default='')
     borough = models.CharField(
         _('Borough'), max_length=100, null=True, blank=True)
     x_coordinate_state_plane = models.CharField(

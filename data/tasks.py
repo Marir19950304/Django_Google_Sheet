@@ -83,14 +83,15 @@ def fetch_pvadtc():
     limit = 1000
     offset = 0
     dataset_code = '8y4t-faws'
-    complaints = Complaint.objects.filter(step=0)[:50]
+    complaints = Complaint.objects.filter(step=0, bbl__ne='')[:50]
     while complaints and len(complaints) > 0:
         for c in complaints:
             Property.objects.filter(
                 parid__in=[c.bbl for c in complaints]).delete()
 
         processed_ids = set()
-        ids = ','.join([f"'{c.bbl}'" for c in complaints])
+        ids = ','.join(
+            [f"'{c.bbl}'" for c in complaints if c.bbl and c.bbl != ''])
 
         with Socrata("data.cityofnewyork.us", APP_TOKEN, API_KEY, API_SECRET) as client:
             while True:
@@ -173,7 +174,7 @@ def fetch_daily():
                         "incident_zip": complaint['incident_zip'],
                         "incident_address": complaint['incident_address'],
                         "city": complaint['city'],
-                        "bbl": complaint['bbl'],
+                        "bbl": complaint.get('bbl', ''),
                         "step": 0
                     })
 
