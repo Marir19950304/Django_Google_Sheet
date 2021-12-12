@@ -53,10 +53,6 @@ def fetch_documents():
     """
     # property legals
     dataset_code = '8h5j-fqxa'
-    for p in Property.objects.values('parid').annotate(Max('extracrdt'), Min('id')):
-        Property.objects.filter(parid=p['parid']).exclude(
-            extracrdt=p['extracrdt__max'], id=p['id__min']).delete()
-
     props = Property.objects.filter(step=0)[:50]
     with Socrata("data.cityofnewyork.us", APP_TOKEN, API_KEY, API_SECRET) as client:
         for prop in props:
@@ -83,7 +79,8 @@ def fetch_pvadtc():
     limit = 1000
     offset = 0
     dataset_code = '8y4t-faws'
-    complaints = Complaint.objects.filter(step=0, bbl__ne='')[:50]
+    complaints = Complaint.objects.filter(step=0).exclude(
+        bbl__exact='').exclude(bbl__isnull=True)[:50]
     while complaints and len(complaints) > 0:
         for c in complaints:
             Property.objects.filter(
@@ -133,6 +130,10 @@ def fetch_pvadtc():
         Complaint.objects.filter(
             pk__in=[c.id for c in complaints]).update(step=1)
         complaints = Complaint.objects.filter(step=0)[:50]
+
+    for p in Property.objects.values('parid').annotate(Max('extracrdt'), Min('id')):
+        Property.objects.filter(parid=p['parid']).exclude(
+            extracrdt=p['extracrdt__max'], id=p['id__min']).delete()
 
 
 @shared_task
