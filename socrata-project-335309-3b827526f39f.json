@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "socrata-project-335309",
+  "private_key_id": "3b827526f39f702520dd32ea50a69d55178fe510",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC0uyw/tjydNg46\nJWLFzKiRxf5ey7hwR+rNROKUCW28dFJFBThYb5opy4V0jhHByx4vSytN4wPtf9hH\n8U88MFhC+X/a017thwO6vGOfRoXXh0IdZcf/N74UwSIi1vOQxOd9duuHkrgMnIrZ\n3Ty7vKqkIJEBrf96H5UajMghOqwV+GvRiOC3qmje5g+fWPsssltQeLOXI408ZUO2\n2YAHLx2p78d0fnBgcGtus3NuNH4dy1VdIPGgnb4Ew45wdAZwBUBNZnEPl8o2sOMb\nJ6Ak3DZT+1pj3+Slnhum3ZBDzHumtsp9O89FA5HhwVYOdXXrbBca9cCMd20xkfUX\n07aU1s8XAgMBAAECggEAOZgwWLllhaAVVphVar12tsXG80SuqTFx9SpPnmeGzfiv\nwwkP1Lb0BP+zrtobdIubOe0VhsOim8wTC5It8vthFS7XfM/BP6a4HIkuojJiMrYK\n7r1hx8Zmz8xgaYPgqLDnKId+NX0fI/27DgS/9v//zUAHleZyNOPdq1FT8ar17iXr\nNTH2K2Wqz5O60QcN2jy69T6bqg37KWMx4T48vEwphsfgVi0m4oxfStgchmt1h4ky\n+pUiJ5rrQu5gssEK6RG634/1q97ZzAQ7VTu6PFlKMDhuJ+VeqZfNyABFO5zf9/hI\n8HVt/ktAeROvmTfJ7PxcsO9vKQ1W12SESIMQJsCQIQKBgQD2NN7Wm/16yEr1LJgi\nJiRRV6s5Sz6mndaZTbeWqEqwtUtb4d2kNq4/zodZpLlEezfWeQW0bFkG3x1wXxxU\n65IQr0HdGWVvVVwSGd6soIQWaDJZSSYuiAmJq77RfzDm66xNAwcm3rUXD/Fq+C7Q\nzZQWd/7guBHba2ppt9I9iupHhwKBgQC765B3NWf9oMEx8vUHoz+14pKbB0SnkvHp\nhQqlncmL/hmmhNg2n8JeVSzhdPP/+bG6lpaEWboL+9e3XBSQCl5fkN60783YxHO5\nztT58GN3+S/5zp+xpFjSdVPnTilFj4kf4afDblgz8S1sW1rkjWvSI81uImwqUruF\nrMVXVSb/8QKBgQDwywSmICnoy7uDzfl8bJFYfMWZY14C1pvrk3bagf2KlcT+OAjt\ncg05mmQF6HTJ5TjXKcXKj60Ca3P/UwYCh+JzLvTbqNrr6DAEBAkkDFkjEQUtDb2q\nBKJPYwldG2hYcGYza6KzAV1bENysIc6nqGgNEY7VeTD9yDBq9L1KM3KuQQKBgD6j\nXYsuxRP4go04s84w7yqcdEuyl4LX60TwcMUVnDnKoBguTbefdvVkpMod5rsbKs/M\nJC3Hjskx0AyxZ7U/j4eBTYq4KEAp830q4TjSlQVHjWNSKU7YPjcgnrAKEJ28I3P6\nDqaI4GOn74EfzmNCdH8eKfqdBLryysja9wiOPKqxAoGADbMDhagYOu6+OJRJVG/E\nXN+ZW4mHmLPd0nl9cuPVkCbazpPqneB0JvVL21yB8lFfLueZofiPQdbczXrOCp+b\nqH8BYDbTrblQk3BmNRGmJ2Cndm8Dtgq8wr41QUT+Xsv3LplQgznl9vQIv7sw5Qar\nvul8/QPNbUdYaDReA0GlLg4=\n-----END PRIVATE KEY-----\n",
+  "client_email": "upwork-francis@socrata-project-335309.iam.gserviceaccount.com",
+  "client_id": "102342896850126350630",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/upwork-francis%40socrata-project-335309.iam.gserviceaccount.com"
+}

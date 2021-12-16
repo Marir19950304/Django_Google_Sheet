@@ -490,3 +490,72 @@ class PropDocument(models.Model):
 
     def get_absolute_url(self):
         return reverse("propdoc_detail", kwargs={"pk": self.pk})
+
+
+class Output(models.Model):
+    parid = models.CharField(_('PARID'), max_length=64)
+    borough = models.CharField(_('BORO'), max_length=64, null=True, blank=True)
+    block = models.CharField(_('BLOCK'), max_length=64, null=True, blank=True)
+    lot = models.CharField(_('LOT'), max_length=64, null=True, blank=True)
+    owner = models.CharField(
+        _('OWNER'), max_length=64, null=True, blank=True)
+    housenum_lo = models.CharField(
+        _('HOUSENUM_LO'), max_length=64, null=True, blank=True)
+    housenum_hi = models.CharField(
+        _('HOUSENUM_HI'), max_length=64, null=True, blank=True)
+    city = models.CharField(_('City'), max_length=100, null=True, blank=True)
+    state = models.CharField(_('State'), max_length=100, null=True, blank=True)
+    zoning = models.CharField(
+        _('ZONING'), max_length=64, null=True, blank=True)
+    zip_code = models.CharField(
+        _('ZIP_CODE'), max_length=64, null=True, blank=True)
+    bld_story = models.CharField(
+        _('BLD_STORY'), max_length=64, null=True, blank=True)
+    bldg_class = models.CharField(
+        _('BLDG_CLASS'), max_length=64, null=True, blank=True)
+    units = models.CharField(_('UNITS'), max_length=64, null=True, blank=True)
+    lot_frt = models.CharField(
+        _('LOT_FRT'), max_length=64, null=True, blank=True)
+    lot_dep = models.CharField(
+        _('LOT_DEP'), max_length=64, null=True, blank=True)
+    bld_frt = models.CharField(
+        _('BLD_FRT'), max_length=64, null=True, blank=True)
+    bld_dep = models.CharField(
+        _('BLD_DEP'), max_length=64, null=True, blank=True)
+    land_area = models.CharField(
+        _('LAND_AREA'), max_length=64, null=True, blank=True)
+    gross_sqft = models.CharField(
+        _('GROSS_SQFT'), max_length=64, null=True, blank=True)
+    pymkttot = models.CharField(
+        _('PYMKTTOT'), max_length=64, null=True, blank=True)
+    curmkttot = models.CharField(
+        _('PYMKTTOT'), max_length=64, null=True, blank=True)
+
+    class Meta:
+        verbose_name = _("output")
+        verbose_name_plural = _("outputs")
+
+    def __str__(self):
+        return "{}-{}-{}".format(self.borough, self.block, self.lot)
+
+    def get_absolute_url(self):
+        return reverse("output_detail", kwargs={"pk": self.pk})
+
+
+class Csv(models.Model):
+    STATUSES = (("PENDING", 0), ("PROCESSING", 1),
+                ("SUCCESS", 2), ("FAILURE", 3))
+    file = models.FileField(_("Csv"), upload_to=None, max_length=100)
+    timestamp_created = models.DateTimeField(
+        _("Created"), auto_now=False, auto_now_add=True)
+    status = models.IntegerField(_("Status"), default=0, choices=STATUSES)
+
+    class Meta:
+        verbose_name = _("csv")
+        verbose_name_plural = _("csvs")
+
+    def __str__(self):
+        return self.file
+
+    def get_absolute_url(self):
+        return reverse("csv_detail", kwargs={"pk": self.pk})

@@ -32,3 +32,8 @@ class PropertyAdmin(admin.ModelAdmin):
 class PropDocumentAdmin(admin.ModelAdmin):
     list_display = ('document_id', 'borough', 'block', 'lot', 'recorded_borough', 'doc_type',
                     'document_date', 'document_amt', 'recorded_datetime', 'percent_trans', 'good_through_date')
+
+
+@admin.register(Csv)
+class CsvAdmin(admin.ModelAdmin):
+    list_display = ('file', 'status')

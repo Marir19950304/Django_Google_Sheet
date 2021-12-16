@@ -176,3 +176,6 @@ LOGGING = {
         'level': 'INFO',
     },
 }
+
+
+SHEET_ID = '1EZdqFRXF-J4yC4Wt8c2fPqx46NY4QXpcrmOOGIkQlKE/edit#gid=0'
