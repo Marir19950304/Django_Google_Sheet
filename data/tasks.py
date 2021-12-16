@@ -8,7 +8,7 @@ from django.utils.timezone import timedelta
 from data.models import *
 import os
 from sodapy import Socrata
-from django.db.models import Count, Max, Min
+from django.db.models import Count, Max, Min, Q
 import logging
 from dotenv import load_dotenv
 load_dotenv()
@@ -27,23 +27,27 @@ def fetch_doc_details():
     """
     docstring
     """
+    # https://data.cityofnewyork.us/City-Government/ACRIS-Real-Property-Master/bnx9-e6tj/data
     dataset_code = 'bnx9-e6tj'
     with Socrata("data.cityofnewyork.us", APP_TOKEN, API_KEY, API_SECRET) as client:
-        docs = PropDocument.objects.filter(step=0)[:50]
+        q = Q(doc_type__isnull=True) | Q(doc_type__iexact='')
+        docs = PropDocument.objects.filter(q)[:50]
         for d in docs:
             details = client.get(
                 dataset_code, where="document_id='{}'".format(d.document_id))
-            if details and len(details) > 0:
-                detail = details[0]
-                PropDocument.objects.filter(id=d.id).update(
-                    recorded_borough=detail['recorded_borough'],
-                    doc_type=detail['doc_type'],
-                    document_date=detail['document_date'],
-                    document_amt=detail['document_amt'],
-                    recorded_datetime=detail['recorded_datetime'],
-                    percent_trans=detail['percent_trans'],
-                    good_through_date=detail['good_through_date']
-                )
+            if not details or len(details) <= 0:
+                continue
+
+            detail = details[0]
+            PropDocument.objects.filter(id=d.id).update(
+                recorded_borough=detail['recorded_borough'],
+                doc_type=detail['doc_type'],
+                document_date=detail['document_date'],
+                document_amt=detail['document_amt'],
+                recorded_datetime=detail['recorded_datetime'],
+                percent_trans=detail['percent_trans'],
+                good_through_date=detail['good_through_date']
+            )
 
         PropDocument.objects.filter(
             id__in=[d.id for d in docs]).update(step=1)
@@ -56,7 +60,7 @@ def fetch_documents():
     """
     # property legals
     dataset_code = '8h5j-fqxa'
-    props = Property.objects.filter(step=0)[:50]
+    props = Property.objects.filter(step=1)[:50]
     with Socrata("data.cityofnewyork.us", APP_TOKEN, API_KEY, API_SECRET) as client:
         for prop in props:
             while True:
@@ -74,7 +78,7 @@ def fetch_documents():
                             "lot": legal['lot']
                         }
                     )
-    Property.objects.filter(id__in=[p.id for p in props]).update(step=1)
+    Property.objects.filter(id__in=[p.id for p in props]).update(step=2)
 
 
 @shared_task
@@ -123,7 +127,8 @@ def fetch_details():
                         street_name=t.get('street_name'),
                         zip_code=t.get('zip_code'),
                         corner=t.get('corner'),
-                        extracrdt=t.get('extracrdt')
+                        extracrdt=t.get('extracrdt'),
+                        step=0
                     )
                 except Exception as e:
                     _logger.exception(e)
@@ -138,6 +143,7 @@ def fetch_details():
     for p in props:
         Property.objects.filter(
             parid=p['parid']).exclude(extracrdt=p['extracrdt__max']).delete()
+        Property.objects.filter(parid=p['parid']).update(step=1)
 
     # while complaints and len(complaints) > 0:
     #     for c in complaints:
