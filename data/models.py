@@ -135,6 +135,9 @@ class Complaint(models.Model):
 
 
 class Property(models.Model):
+    complaint = models.ForeignKey(Complaint, verbose_name=_(
+        "Complaint"), on_delete=models.CASCADE, related_name='assessments', null=True, blank=True)
+
     timestamp_created = models.DateTimeField(
         _("Timestamp"), auto_now_add=True)
     timestamp_modified = models.DateTimeField(
@@ -428,7 +431,7 @@ class Property(models.Model):
     reuc_description = models.TextField(
         _('REUC_DESCRIPTION'), null=True, blank=True)
     extracrdt = models.CharField(
-        _('EXTRACRDT'), max_length=64, null=True, blank=True)
+        _('EXTRACRDT'), max_length=64)
     pytaxflag = models.CharField(
         _('PYTAXFLAG'), max_length=64, null=True, blank=True)
     tentaxflag = models.CharField(
@@ -446,7 +449,7 @@ class Property(models.Model):
         verbose_name_plural = _("property assessments")
 
     def __str__(self):
-        return self.name
+        return self.parid
 
     def get_absolute_url(self):
         return reverse("property_detail", kwargs={"pk": self.pk})

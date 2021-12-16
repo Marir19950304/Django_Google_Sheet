@@ -32,5 +32,6 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        # fetch_pvadtc()
-        pass
+        props = Property.objects.values('parid').annotate(
+            Count('parid'))
+        print(props)

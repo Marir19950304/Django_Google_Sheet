@@ -29,8 +29,10 @@ class Command(BaseCommand):
     help = ''
 
     def add_arguments(self, parser):
-        pass
+        parser.add_argument("--what")
 
     def handle(self, *args, **options):
-        # fetch_pvadtc()
-        pass
+        if not options['what']:
+            Complaint.objects.all().delete()
+        if options["what"] == 'props':
+            Property.objects.all().delete()

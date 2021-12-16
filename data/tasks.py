@@ -9,8 +9,11 @@ from data.models import *
 import os
 from sodapy import Socrata
 from django.db.models import Count, Max, Min
+import logging
 from dotenv import load_dotenv
 load_dotenv()
+
+_logger = logging.getLogger(__name__)
 
 API_KEY = os.environ.get("API_KEY")
 APP_TOKEN = os.environ.get("APP_TOKEN")
@@ -75,31 +78,29 @@ def fetch_documents():
 
 
 @shared_task
-def fetch_pvadtc():
-    limit = 1000
+def fetch_details():
+    limit = 500
     offset = 0
-    dataset_code = '8y4t-faws'
+    dataset_code = '8y4t-faws'  # Property Value Assessment and Tax Class
+
     complaints = Complaint.objects.filter(step=0).exclude(
-        bbl__exact='').exclude(bbl__isnull=True)[:50]
-    while complaints and len(complaints) > 0:
-        for c in complaints:
-            Property.objects.filter(
-                parid__in=[c.bbl for c in complaints]).delete()
+        bbl__exact='').exclude(bbl__isnull=True)[:100]
+    if not complaints or len(complaints) <= 0:
+        return
 
-        processed_ids = set()
-        ids = ','.join(
-            [f"'{c.bbl}'" for c in complaints if c.bbl and c.bbl != ''])
+    ids = [c.id for c in complaints]
+    parids = ','.join([f"'{c.bbl}'" for c in complaints])
 
-        with Socrata("data.cityofnewyork.us", APP_TOKEN, API_KEY, API_SECRET) as client:
-            while True:
-                taxes = client.get(
-                    dataset_code, where=f"parid in({ids})", limit=limit, offset=offset)
-
-                if not taxes or len(taxes) <= 0:
-                    break
-
-                for t in taxes:
+    Property.objects.filter(complaint__id__in=ids).delete()
+    with Socrata("data.cityofnewyork.us", APP_TOKEN, API_KEY, API_SECRET) as client:
+        taxes = client.get(
+            dataset_code, where=f"parid in({parids})", limit=limit, offset=offset)
+        while taxes and len(taxes) > 0:
+            for t in taxes:
+                try:
+                    complaint = Complaint.objects.get(bbl=t['parid'])
                     Property.objects.create(
+                        complaint=complaint,
                         parid=t['parid'],
                         boro=t['boro'],
                         block=t['block'],
@@ -119,25 +120,80 @@ def fetch_pvadtc():
                         zoning=t.get('zoning'),
                         housenum_lo=t.get('housenum_lo'),
                         housenum_hi=t.get('housenum_hi'),
-                        street_name=t['street_name'],
+                        street_name=t.get('street_name'),
                         zip_code=t.get('zip_code'),
                         corner=t.get('corner'),
                         extracrdt=t.get('extracrdt')
                     )
+                except Exception as e:
+                    _logger.exception(e)
 
-                offset += limit
+            offset += limit
+            taxes = client.get(
+                dataset_code, where=f"parid in({parids})", limit=limit, offset=offset)
 
-        Complaint.objects.filter(
-            pk__in=[c.id for c in complaints]).update(step=1)
-        complaints = Complaint.objects.filter(step=0)[:50]
+    Complaint.objects.filter(id__in=ids).update(step=1)
+    props = Property.objects.filter(complaint__id__in=ids).values(
+        'parid').annotate(Max('extracrdt'), Min('id'))
+    for p in props:
+        Property.objects.filter(
+            parid=p['parid']).exclude(extracrdt=p['extracrdt__max']).delete()
 
-    for p in Property.objects.values('parid').annotate(Max('extracrdt'), Min('id')):
-        Property.objects.filter(parid=p['parid']).exclude(
-            extracrdt=p['extracrdt__max'], id=p['id__min']).delete()
+    # while complaints and len(complaints) > 0:
+    #     for c in complaints:
+    #         Property.objects.filter(
+    #             parid__in=[c.bbl for c in complaints]).delete()
+
+    #     ids = ','.join([f"'{c.bbl}'" for c in complaints])
+
+    #     with Socrata("data.cityofnewyork.us", APP_TOKEN, API_KEY, API_SECRET) as client:
+    #         while True:
+    #             taxes = client.get(
+    #                 dataset_code, where=f"parid in({ids})", limit=limit, offset=offset)
+
+    #             if not taxes or len(taxes) <= 0:
+    #                 break
+
+    #             for t in taxes:
+    #                 Property.objects.create(
+    #                     parid=t['parid'],
+    #                     boro=t['boro'],
+    #                     block=t['block'],
+    #                     lot=t['lot'],
+    #                     pymkttot=t.get('pymkttot'),
+    #                     curmkttot=t.get('curmkttot'),
+    #                     bldg_class=t.get('bldg_class'),
+    #                     bld_story=t.get('bld_story'),
+    #                     units=t.get('units'),
+    #                     lot_frt=t.get('lot_frt'),
+    #                     lot_dep=t.get('lot_dep'),
+    #                     bld_frt=t.get('bld_frt'),
+    #                     bld_dep=t.get('bld_dep'),
+    #                     land_area=t.get('land_area'),
+    #                     gross_sqft=t.get('gross_sqft'),
+    #                     owner=t.get('owner'),
+    #                     zoning=t.get('zoning'),
+    #                     housenum_lo=t.get('housenum_lo'),
+    #                     housenum_hi=t.get('housenum_hi'),
+    #                     street_name=t['street_name'],
+    #                     zip_code=t.get('zip_code'),
+    #                     corner=t.get('corner'),
+    #                     extracrdt=t.get('extracrdt')
+    #                 )
+
+    #             offset += limit
+
+    #     Complaint.objects.filter(
+    #         pk__in=[c.id for c in complaints]).update(step=1)
+    #     complaints = Complaint.objects.filter(step=0)[:50]
+
+    # for p in Property.objects.values('parid').annotate(Max('extracrdt'), Min('id')):
+    #     Property.objects.filter(parid=p['parid']).exclude(
+    #         extracrdt=p['extracrdt__max'], id=p['id__min']).delete()
 
 
 @shared_task
-def fetch_daily():
+def fetch_daily(back_days=3):
     limit = 512
     offset = 0
 
@@ -146,7 +202,7 @@ def fetch_daily():
     # end_date = Criteria.objects.get(
     #     name='end_date').date_value.astimezone(EST).isoformat()[0:19]
     dataset_code = 'erm2-nwe9'
-    start_date = (timezone.now() - timedelta(days=1)).astimezone(
+    start_date = (timezone.now() - timedelta(days=back_days)).astimezone(
         EST).replace(hour=0, minute=0).isoformat()[0:19]
     end_date = timezone.now().astimezone(
         EST).replace(hour=23, minute=59).isoformat()[0:19]
@@ -155,17 +211,17 @@ def fetch_daily():
     descriptor = Criteria.objects.get(
         name='descriptor').text_value
 
-    with Socrata("data.cityofnewyork.us", APP_TOKEN, API_KEY, API_SECRET) as client:
-        while True:
-            complaints = client.get(
-                dataset_code, where=f"created_date between '{start_date}' AND '{end_date}' AND complaint_type like '%{complaint_type}%' AND descriptor like '%{descriptor}%' AND bbl IS NOT NULL", limit=limit, offset=offset)
-            if not complaints or len(complaints) <= 0:
-                print("No items found!")
-                break
+    _logger.info("@fetch_daily() from {} to {}".format(start_date, end_date))
 
-            for complaint in complaints:
+    with Socrata("data.cityofnewyork.us", APP_TOKEN, API_KEY, API_SECRET) as client:
+        complaints = client.get(
+            dataset_code, where=f"created_date between '{start_date}' AND '{end_date}' AND complaint_type like '%{complaint_type}%' AND descriptor like '%{descriptor}%' AND bbl IS NOT NULL", limit=limit, offset=offset)
+        while complaints and len(complaints) > 0:
+            for complaint in sorted(complaints, key=lambda k: k['created_date']):
                 obj, created = Complaint.objects.update_or_create(
-                    unique_key=complaint['unique_key'], defaults={
+                    bbl=complaint['bbl'],
+                    defaults={
+                        "unique_key": complaint['unique_key'],
                         "created_date": complaint['created_date'],
                         "closed_date": complaint.get('closed_date'),
                         "agency": complaint['agency'],
@@ -178,5 +234,6 @@ def fetch_daily():
                         "bbl": complaint.get('bbl', ''),
                         "step": 0
                     })
-
             offset += limit
+            complaints = client.get(
+                dataset_code, where=f"created_date between '{start_date}' AND '{end_date}' AND complaint_type like '%{complaint_type}%' AND descriptor like '%{descriptor}%' AND bbl IS NOT NULL", limit=limit, offset=offset)

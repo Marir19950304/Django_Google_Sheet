@@ -150,3 +150,29 @@ CELERY_TIMEZONE = "US/Eastern"
 CELERY_TASK_TIME_LIMIT = 60 * 60
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'verbose': {
+            'format': '{asctime} - {module} - {levelname} - {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{asctime} - {module} - {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}
