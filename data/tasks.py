@@ -88,7 +88,7 @@ def fetch_details():
     dataset_code = '8y4t-faws'  # Property Value Assessment and Tax Class
 
     complaints = Complaint.objects.filter(step=0).exclude(
-        bbl__exact='').exclude(bbl__isnull=True)[:100]
+        bbl__exact='').exclude(bbl__isnull=True)[:80]
     if not complaints or len(complaints) <= 0:
         return
 
