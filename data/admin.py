@@ -37,3 +37,4 @@ class PropDocumentAdmin(admin.ModelAdmin):
 @admin.register(Csv)
 class CsvAdmin(admin.ModelAdmin):
     list_display = ('file', 'status')
+    readonly_fields = ["status"]

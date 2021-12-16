@@ -543,8 +543,8 @@ class Output(models.Model):
 
 
 class Csv(models.Model):
-    STATUSES = (("PENDING", 0), ("PROCESSING", 1),
-                ("SUCCESS", 2), ("FAILURE", 3))
+    STATUSES = ((0, "PENDING"), (1, "PROCESSING"),
+                (2, "SUCCESS"), (3, "FAILURE"))
     file = models.FileField(_("Csv"), upload_to=None, max_length=100)
     timestamp_created = models.DateTimeField(
         _("Created"), auto_now=False, auto_now_add=True)
@@ -559,3 +559,34 @@ class Csv(models.Model):
 
     def get_absolute_url(self):
         return reverse("csv_detail", kwargs={"pk": self.pk})
+
+
+class Party(models.Model):
+
+    document_id = models.CharField(
+        _('DOCUMENT ID'), null=True, blank=True, max_length=200)
+    record_type = models.CharField(
+        _('RECORD TYPE'), null=True, blank=True, max_length=200)
+    party_type = models.CharField(
+        _('PARTY TYPE'), null=True, blank=True, max_length=200)
+    name = models.CharField(_('NAME'), null=True, blank=True, max_length=200)
+    address_1 = models.CharField(
+        _('ADDRESS 1'), null=True, blank=True, max_length=200)
+    address_2 = models.CharField(
+        _('ADDRESS 2'), null=True, blank=True, max_length=200)
+    country = models.CharField(
+        _('COUNTRY'), null=True, blank=True, max_length=200)
+    city = models.CharField(_('CITY'), null=True, blank=True, max_length=200)
+    zip = models.CharField(_('ZIP'), null=True, blank=True, max_length=200)
+    good_through_date = models.CharField(
+        _('GOOD THROUGH DATE'), null=True, blank=True, max_length=200)
+
+    class Meta:
+        verbose_name = _("party")
+        verbose_name_plural = _("parties")
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("party_detail", kwargs={"pk": self.pk})

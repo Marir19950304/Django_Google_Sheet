@@ -31,7 +31,7 @@ def gen_django_field(inpfile):
         for idx, line in enumerate(infile.readlines()):
             line = line.strip(" \r\n\t")
             if (idx % 2) == 0:
-                right = f"models.IntegerField(_('{line}'), default=0)"
+                right = f"models.CharField(_('{line}'), null=True, blank=True, max_length=200)"
             else:
                 buffer += f"{line} = {right}\n"
 
