@@ -199,7 +199,7 @@ def fetch_details():
 
 
 @shared_task
-def fetch_daily(back_days=3):
+def fetch_daily(back_days=1):
     limit = 512
     offset = 0
 
