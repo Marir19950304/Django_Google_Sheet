@@ -42,7 +42,7 @@ def fetch_doc_details():
             PropDocument.objects.filter(id=d.id).update(
                 recorded_borough=detail['recorded_borough'],
                 doc_type=detail['doc_type'],
-                document_date=detail['document_date'],
+                document_date=detail.get('document_date'),
                 document_amt=detail['document_amt'],
                 recorded_datetime=detail['recorded_datetime'],
                 percent_trans=detail['percent_trans'],
@@ -60,7 +60,7 @@ def fetch_documents():
     """
     # property legals
     dataset_code = '8h5j-fqxa'
-    props = Property.objects.filter(step=1)[:50]
+    props = Property.objects.filter(step=1)[:100]
     with Socrata("data.cityofnewyork.us", APP_TOKEN, API_KEY, API_SECRET) as client:
         for prop in props:
             while True:
@@ -88,7 +88,7 @@ def fetch_details():
     dataset_code = '8y4t-faws'  # Property Value Assessment and Tax Class
 
     complaints = Complaint.objects.filter(step=0).exclude(
-        bbl__exact='').exclude(bbl__isnull=True)[:80]
+        bbl__exact='').exclude(bbl__isnull=True)[:100]
     if not complaints or len(complaints) <= 0:
         return
 
