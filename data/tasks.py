@@ -1,24 +1,28 @@
 from __future__ import absolute_import
-from datetime import date, datetime
-import json
-from re import I
-from celery import Celery, shared_task
-from celery.schedules import crontab
+from celery import shared_task
+from django.core import serializers
 from django.db.models.aggregates import Sum
-from numpy import NaN, nan
-import pytz
 from django.utils import timezone
 from django.utils.timezone import timedelta
-from data.models import *
+from django.db.models import Count, Max, Min, Q
+from django.db import connection
+from django.utils import timezone
+from datetime import date, datetime
+from re import I
 import os
 from sodapy import Socrata
-from django.db.models import Count, Max, Min, Q
 import logging
-from django.core import serializers
 from dotenv import load_dotenv
 from dateutil import parser
 import pandas as pd
-from django.db import connection
+import pytz
+import gspread
+
+from data.models import *
+
+from oauth2client.service_account import ServiceAccountCredentials
+
+
 load_dotenv()
 
 _logger = logging.getLogger(__name__)
@@ -29,6 +33,73 @@ API_SECRET = os.environ.get("API_SECRET")
 
 EST = pytz.timezone("US/Eastern")
 
+def run_task(fetch_type, back_days):
+    scope = ["https://www.googleapis.com/auth/drive", 
+            "https://www.googleapis.com/auth/spreadsheets",
+            "https://spreadsheets.google.com/feeds"]
+    # add credentials to the account
+    creds = ServiceAccountCredentials.from_json_keyfile_name(
+        'auth2.json', scope)
+    # authorize the clientsheet
+    client = gspread.authorize(creds)
+    # get the instance of the Spreadsheet
+    # open_sheet = client.open('Google_'+fetch_type)
+    # sheet = client.create('data_5')
+    # sheet.share('quickpaydeal@gmail.com', perm_type='user', role='writer')
+    # open_sheet.share('yeykeliezz1991@gmail.com', perm_type='user', role='writer')
+    # sheet.share('yeykeliezz1991@gmail.com', perm_type='user', role='writer')
+    # sheet_instance = sheet.get_worksheet(0)
+    # get the first sheet of the Spreadsheet
+    
+    fetch_data = []
+
+    if (fetch_type == 'fetchdaily'):
+        fetch_data = google_fetch(back_days,'')
+        
+        sheet = client.create('data_311')
+
+    else:
+        if (fetch_type == 'fetchresult_1'):
+            open_sheet = client.open('data_1')
+            sheet = client.create('filter_data_1')
+        elif (fetch_type == 'fetchresult_2'):
+            open_sheet = client.open('data_2')
+            sheet = client.create('filter_data_2')
+        elif (fetch_type == 'fetchresult_3'):
+            open_sheet = client.open('data_3')
+            sheet = client.create('filter_data_3')
+        elif (fetch_type == 'fetchresult_4'):
+            open_sheet = client.open('data_4')
+            sheet = client.create('filter_data_4')
+        elif (fetch_type == 'fetchresult_5'):
+            open_sheet = client.open('data_5')
+            sheet = client.create('filter_data_5')
+    
+        open_sheet.share('quickpaydeal@gmail.com', perm_type='user', role='writer')
+        # open_sheet.share('yeykeliezz1991@gmail.com', perm_type='user', role='writer')
+        open_sheet_instance = open_sheet.get_worksheet(0)
+        records_data = open_sheet_instance.get_all_records()
+        fetch_data = google_fetch(-10,records_data)
+
+    sheet.share('quickpaydeal@gmail.com', perm_type='user', role='writer')
+    # sheet.share('yeykeliezz1991@gmail.com', perm_type='user', role='writer')
+    sheet_instance = sheet.get_worksheet(0)
+    if (len(fetch_data) > 0):
+        header = ['PARID', 'BORO', 'BLOCK', 'LOT', 'OWNER', 'HOUSENUM_LO', 'HOUSENUM_HI', 
+                'STREET_NAME','APTNO', 'CITY', 'STATE', 'ZIP_CODE', 'ZONING', 'BLD_STORY', 
+                'BLDG_CLASS', 'UNITS', 'LOT_FRT', 'LOT_DEP', 'BLD_FRT', 'BLD_DEP', 
+                'LAND_AREA', 'GROSS_SQFT', 'PYMKTTOT', 'CURMKTTOT', 'PARTY 2', 'ADDRESS 1',
+                'ADDRESS 2', 'CITY', 'STATE', 'ZIP', 'PARTY2.2', 'ADDRESS 1', 'ADDRESS 2',
+                'CITY', 'STATE', 'ZIP', 'Good Through Date','DEED', 'RECORDED/FILED', 
+                'DOC.AMOUNT', 'MTG', 'DOC.DATE', 'RECORDED/FILED','TLS', 'MCON', 'DESCRIPTOR',
+                'FIRST DATE', 'LAST DATE']
+                # 'SUM_BAL', 'DT_GRACE', 'SUM']
+        sheet_instance.update('A1:AV1', [header])
+        sheet_instance.update('A2:AV'+str(1+len(fetch_data)), fetch_data)
+
+@shared_task
+def run_delayed_task(fetch_type, back_days):
+    run_task(fetch_type, back_days)
 
 def get_full_query(criteria):
     full_criteria = {}
@@ -55,12 +126,10 @@ def get_full_query(criteria):
     return full_criteria
 
 
-@shared_task
 def convert_date(my_date):
     return '' if my_date == '' or my_date == None else parser.parse(my_date).strftime('%d/%m/%Y')
 
 
-@shared_task
 def delete_all():
     Complaint.objects.all().delete()
     Property.objects.all().delete()
@@ -68,7 +137,6 @@ def delete_all():
     Party.objects.all().delete()
 
 
-@shared_task
 def fetch_doc_details():
     """
     docstring
@@ -84,9 +152,11 @@ def fetch_doc_details():
         # q = Q(doc_type__isnull=True) | Q(doc_type__iexact='')
         doc_ids = ','.join(
             [f"'{doc.document_id}'" for doc in docs[offset:offset+limit]])
-        details = client.get(
-            dataset_code, where=f"document_id in({doc_ids})")
-
+        try:
+            details = client.get(
+                dataset_code, where=f"document_id in({doc_ids})")
+        except:
+            details = []
         while len(details) > 0:
             print(offset)
             details_dict = {}
@@ -122,7 +192,6 @@ def fetch_doc_details():
     #     id__in=[d.id for d in docs]).update(step=1)
 
 
-@shared_task
 def fetch_documents():
     """
     docstring
@@ -168,7 +237,6 @@ def fetch_documents():
     # Property.objects.filter(id__in=[p.id for p in props]).update(step=2)
 
 
-@shared_task
 def fetch_details():
     time = datetime.now()
 
@@ -249,11 +317,10 @@ def fetch_details():
     print(datetime.now() - time)
 
 
-@shared_task
 def fetch_daily(back_days):
     time = datetime.now()
 
-    limit = 100
+    limit = 200
     offset = 0
 
     dataset_code = 'erm2-nwe9'
@@ -337,7 +404,6 @@ def fetch_daily(back_days):
     print(datetime.now() - time)
 
 
-@shared_task
 def fetch_party():
     """
     docstring
@@ -355,9 +421,11 @@ def fetch_party():
 
         doc_ids = ','.join(
             [f"'{doc.document_id}'" for doc in docs[offset:offset+limit]])
-        parties = client.get(
-            dataset_code, where=f"document_id in({doc_ids})")
-
+        try:
+            parties = client.get(
+                dataset_code, where=f"document_id in({doc_ids})")
+        except:
+            parties = []
         while len(parties) > 0:
             print (offset)
             
@@ -416,7 +484,6 @@ def fetch_party():
     print(datetime.now() - time)
 
 
-@shared_task
 def fetch_from_excel(data):
     time = datetime.now()
     
@@ -538,8 +605,8 @@ def fetch_from_excel(data):
     print(datetime.now() - time)
 
 
-@shared_task
 def google_fetch(back_days,data):
+    print(back_days, data)
     # return datetime.timestamp(datetime.strptime('2020 Jun 15 12:00:00 AM', '%Y %b %d %I:%M:%S %p'))
     delete_all()
     if back_days == -10:
@@ -743,7 +810,6 @@ def google_property_master(boro, block, lot):
     return ret_arr
 
 
-@shared_task
 def fetch_result(parid):
     dataset_code = 'scjx-j6np'
 
