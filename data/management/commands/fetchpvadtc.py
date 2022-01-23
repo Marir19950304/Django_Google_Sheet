@@ -13,7 +13,6 @@ load_dotenv()
 API_KEY = os.environ.get("API_KEY")
 APP_TOKEN = os.environ.get("APP_TOKEN")
 API_SECRET = os.environ.get("API_SECRET")
-
 EST = pytz.timezone("US/Eastern")
 
 
@@ -32,5 +31,4 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        # fetch_pvadtc()
-        pass
+        fetch_pvadtc()

@@ -19,7 +19,7 @@ class Command(BaseCommand):
     help = ''
 
     def add_arguments(self, parser):
-        parser.add_argument("--back-days", default=3, type=int)
+        parser.add_argument("--back-days", default=1, type=int)
 
     def handle(self, *args, **options):
-        fetch_daily(options['back_days'])
+        print(fetch_daily(options['back_days']))

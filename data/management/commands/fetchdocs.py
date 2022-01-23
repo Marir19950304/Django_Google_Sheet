@@ -22,4 +22,4 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        fetch_documents()
+        print(fetch_documents())

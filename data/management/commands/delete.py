@@ -32,7 +32,5 @@ class Command(BaseCommand):
         parser.add_argument("--what")
 
     def handle(self, *args, **options):
-        if not options['what']:
-            Complaint.objects.all().delete()
-        if options["what"] == 'props':
-            Property.objects.all().delete()
+        delete_all()
+

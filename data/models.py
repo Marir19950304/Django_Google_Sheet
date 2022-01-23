@@ -45,6 +45,8 @@ class Complaint(models.Model):
         _('Unique Key'), max_length=100, null=True, blank=True, unique=True)
     created_date = models.CharField(
         _('Created Date'), max_length=100)
+    oldest_created_date = models.CharField(
+        _('Oldest Created Date'), max_length=100, null=True, blank=True)
     closed_date = models.CharField(
         _('Closed Date'), max_length=100, null=True, blank=True)
     agency = models.CharField(
@@ -135,9 +137,6 @@ class Complaint(models.Model):
 
 
 class Property(models.Model):
-    complaint = models.ForeignKey(Complaint, verbose_name=_(
-        "Complaint"), on_delete=models.CASCADE, related_name='assessments', null=True, blank=True)
-
     timestamp_created = models.DateTimeField(
         _("Timestamp"), auto_now_add=True)
     timestamp_modified = models.DateTimeField(
@@ -577,7 +576,9 @@ class Party(models.Model):
     country = models.CharField(
         _('COUNTRY'), null=True, blank=True, max_length=200)
     city = models.CharField(_('CITY'), null=True, blank=True, max_length=200)
+    state = models.CharField(_('STATE'), null=True, blank=True, max_length=200)
     zip = models.CharField(_('ZIP'), null=True, blank=True, max_length=200)
+
     good_through_date = models.CharField(
         _('GOOD THROUGH DATE'), null=True, blank=True, max_length=200)
 

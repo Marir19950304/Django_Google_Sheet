@@ -22,4 +22,4 @@ class Command(BaseCommand):
         parser.add_argument("--back-days", default=3, type=int)
 
     def handle(self, *args, **options):
-        fetch_doc_details()
+        print(fetch_doc_details())

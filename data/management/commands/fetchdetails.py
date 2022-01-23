@@ -32,4 +32,4 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        fetch_details()
+        fetch_data = fetch_details()

@@ -16,7 +16,7 @@ class CriteriaAdmin(admin.ModelAdmin):
 @admin.register(Complaint)
 class ComplaintAdmin(admin.ModelAdmin):
 
-    list_display = ('unique_key', 'bbl', 'created_date', 'closed_date', 'agency', 'complaint_type',
+    list_display = ('unique_key', 'bbl', 'created_date', 'oldest_created_date', 'closed_date', 'agency', 'complaint_type',
                     'descriptor', 'status', 'incident_zip', 'incident_address', 'city', 'step')
     actions = [reset_step]
 
@@ -33,8 +33,11 @@ class PropDocumentAdmin(admin.ModelAdmin):
     list_display = ('document_id', 'borough', 'block', 'lot', 'recorded_borough', 'doc_type',
                     'document_date', 'document_amt', 'recorded_datetime', 'percent_trans', 'good_through_date')
 
-
 @admin.register(Csv)
 class CsvAdmin(admin.ModelAdmin):
     list_display = ('file', 'status')
     readonly_fields = ["status"]
+
+@admin.register(Party)
+class PartyAdmin(admin.ModelAdmin):
+    list_display = ('document_id', 'party_type', 'name', 'address_1', 'address_2', 'country', 'city', 'state', 'zip', 'good_through_date')

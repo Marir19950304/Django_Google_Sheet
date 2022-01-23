@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "intrepid-app-336013",
+  "private_key_id": "8f02757b84b5c999fb88e72bd54fcc21081191b9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDcT/AdvTBKWGS6\njnJXCLdXAEjc4GBboUG0Gk7qHMkNX7m0ytKWvm4qhRFGKH66a8vg3kjQUUAvgRTf\nlxSK7+dQ02Z1RbbFl+xbTtYgmtfe98zBzYQe76ISH6M10VmrWRXv9C47Z7dEiJvV\nnwcHuYildUch+ylXyJv/1iFfxHEZV5m+sb3T3KxtbBlXn3ebToFc4Zh02dWLFQtU\nr22LkVOCsTqqfVPlwxt5rXzkK892cYgxY5YtTB5Cj5C59U653YovJPnbIaxq20JS\n5QzRCM0tXhTRbAgueEyh2cTwpRjkgTr5bFSOf9RXpAHjJpGaJfKWIguuVTcv/qh/\nzGZLGsPtAgMBAAECggEABpFKJX4j+A4QhVCFGhEZc2TVHI3XxtjUyOtWhOYcxuLz\n+e696Qko5uhBQ+fQd1A1VgZqV0NveBBksJGkEXbmB2PLPx236Btc9rqFPu2UF9fS\nk8huSC8j6V8QvM75LwF12kmw2HaBYRqiwp3TViidaTPzeJDbLPxpohkeX5N556PF\nt+J5GnkS4/3/Rl0oUNG8dddGTjHE1dMlZVgkAZbciJaVsVG1/nuEVEopby3drlg7\nHANpRwTQ2s4SpqG4MTTNdsShayo2Ecd/iXI2cLWfoeH+2Cahjhl4uAXEgME6KVpr\nsZtQSZBTgtu6Hq2paoWXeAgoKAojucOxJ3UamrrwBQKBgQD1RLok5DElY5l69suB\ng7/ezzCgKqTCjmAYZO5IKUEwg8+J/uBtmE0lbLUXoh5SZV9NnwRuRHSW65cPSma1\nJAYF+h+ZTkjpD16MykUszpR4vevE/tV7Ntdy5TyEK9l0vdRjdT4nxXDYK7LEj0gs\noQ2V6myVISFcisilzHN3LWOvrwKBgQDl86yaV0vHt7jFB7Xz0uM/U9oYjPA7niUs\nhylRL3HiVgxqJF/4fb75AKHcXlEqOXxDtlaZuSH5NznVKZ9wcylpy054eBqv4MNt\nS/GzKXN0hDLtIjIKiOZSv70zVas+IRhqfbcIorc5mmr5fEGepflOyV83ipY0jGP4\nl1v7wsrxIwKBgBtkFIHANjjduatA2pNZOllQvDZ27LWJnvO6ed33NX+MiOX5X+j9\nZEg0rri38zjyd0U86ArEfFzKbLFZdsTuA/ow58yAMKZOgBmrETSi0XP2idkTOJYt\nFryPG0YLe5qNBKYi1tEsPKD3qFxJQB8z0UeXyY6SB57FJQlXHuIFYKejAoGALfF/\nnN6wL1kPu54MxohuCusP+jO+k8rHFpxyrtvR3yzeEh7uZdGJ5Gox7LuTb+JIZ6b4\nqoIIvahBD8vfJTJ9JbwPE5a7jkRUB3RS+D7h6He5TRO199DeY84XWThWnHU0UaKI\nfVs1THcDxJEE81Op+gnV0l0IIbujBboIEMcckQ0CgYEA3w0u4x9jWEGcRxybRyTv\ntKt7kzvWkTRlJPNlPT0A51HrxWIXQtOdvG06n4BZEf1OvWG2wjw0nPwL8acMhPik\nEOEkvd6qP1nkC8PE7tPy3sAiKHTio6sCAjgRDim6OdyA5Yt3CYO41YzqQ7lWkwXU\nBCc27bZCloO7hiU0BNMC4cU=\n-----END PRIVATE KEY-----\n",
+  "client_email": "python-django@intrepid-app-336013.iam.gserviceaccount.com",
+  "client_id": "102762175923650082807",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/python-django%40intrepid-app-336013.iam.gserviceaccount.com"
+}
