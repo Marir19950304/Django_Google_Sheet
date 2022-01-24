@@ -1,0 +1,450 @@
+GoodLuck123!@#
+
+Nicolas Benjamin Deleglise: 7. Hi,
+Thanks for sharing the requirements, A Python expert with over 3+ years of experience as a back end developer. I have decent experience working with database queries, Optimization, troubleshooting and so on.
+I think, in your project Query building is not problem. The most important thing is to data form Open Data API. For big data management, I can use python/pandas or SciPy
+I have already mastered in python, SO I can implement your requirement.
+I have lots of opportunities for building queries such as filter, query and aggregate within client's deadline. I can share my previous back end python and database working base code via chat.
+Also well known for completing projects ahead of deadlines and expected cleaned code, so Received 95% positive feedback from client for testing and flexibility.
+As a full time role, I can start anytime you want.
+I am looking forward to your positive response.
+Thanks and Regards
+
+J Z: are you familiar with Django and digital ocean?
+
+Nicolas: sure
+
+Nicolas: I have strong experiences in Django
+
+J Z: I would like to share with you Job description do you agree to the terms in Upwork Non disclosure agreement?
+
+Nicolas: absolutely
+
+J Z: Thanks Nicolas. i will share with you in a min.
+
+Nicolas: thanks
+
+J Z: Nicholas we will need it done in few days.
+
+Nicolas Benjamin Deleglise: okay, please tell me about your job in detail
+
+Nicolas Benjamin Deleglise: I will complete your project within deadline
+
+J Z: See attached words what we need. might be few changes.
+
+J Z: take few minuets to review.
+
+Nicolas Benjamin Deleglise: I will check it
+
+J Z: Thanks.
+
+Nicolas Benjamin Deleglise: So when is your deadline?
+
+J Z: Let start with how many days you need?
+
+Nicolas Benjamin Deleglise: I will show MVP in 5 days
+
+J Z: Nicolas, we already started with someone in the Philippine and because of the typhon Rai he disappeared. do yo know what we want?
+
+Nicolas Benjamin Deleglise: typhon Rai?
+
+J Z: yes
+
+J Z: do you have any questions?
+
+Nicolas Benjamin Deleglise: no
+
+Nicolas Benjamin Deleglise: I think It isn't so difficult
+
+Nicolas Benjamin Deleglise: you mean rai-python?
+
+Nicolas Benjamin Deleglise: I think It is normal Django Admin panal
+
+J Z: No. i meant the software engineer disappeared because of
+
+J Z: yes it is a normal. if you have a better way let us know. where you are planning to keep all data before it gets to our google sheet. the other guy recommended digital ocean.
+
+Nicolas Benjamin Deleglise: sorry, I didn't understand
+
+Nicolas Benjamin Deleglise: okay I can provide service for your project
+
+J Z: do you clearly understand what we need?
+
+Nicolas Benjamin Deleglise: absolutely
+
+J Z: beautiful. so should i put in the contract the deadline 5 days ?
+
+Nicolas Benjamin Deleglise: yes
+
+J Z: ok.
+
+J Z: How do we go with the payment ?
+
+J Z: Payment schedule?
+
+J Z: Nicholas?
+
+Nicolas Benjamin Deleglise: yes
+
+Nicolas Benjamin Deleglise: I will implement your requirement
+
+J Z: We deposit a full 500 for other guy who disappear because of the Storm and we don't want to end up in the same boat.
+
+Nicolas Benjamin Deleglise: you can deposit $100 first and then after I complete whole project, you can deposit rest and then pay
+
+J Z: the 500 is in escrow he wont get pay if job not completed and deadline in tomorrow morning.
+
+Nicolas Benjamin Deleglise: ok, then I will start work today and then you can provide me offer tomorrow
+
+J Z: Ok Nicholas. if that is what you want . No problem. i am preparing to send you an offer now.
+
+Nicolas Benjamin Deleglise: since it is start, I can provide you flexible schedule as you are comfortable
+
+Nicolas Benjamin Deleglise: I can go with any payment schedule as long as we can trust each other :)
+
+J Z: we are in Upwork. there is in no game on this site for both of us.
+
+Nicolas Benjamin Deleglise: yes, that is why I can start work now. :) you can send me offer whenever you want
+
+Nicolas Benjamin Deleglise: Cna you provide me some information for me to start? like API key
+
+J Z: it is all in their web sites. let me check
+
+Nicolas Benjamin Deleglise: ok, send me those info when you are ready. I will be back in 15 min
+
+J Z: This is one of the sites on the word sheet we sent you .https://data.cityofnewyork.us/City-Government/ACRIS-Real-Property-Master/bnx9-e6tj
+
+J Z: this is what you need. let me it is ok so i can provide for the others
+
+J Z: https://data.cityofnewyork.us/City-Government/DOF-Property-Charges-Balance/scjx-j6np
+
+J Z: https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9
+
+J Z: https://data.cityofnewyork.us/City-Government/Property-Valuation-and-Assessment-Data-Tax-Classes/8y4t-faws
+
+J Z: https://data.cityofnewyork.us/City-Government/ACRIS-Real-Property-Legals/8h5j-fqxa
+
+J Z: https://data.cityofnewyork.us/City-Government/ACRIS-Real-Property-Parties/636b-3b5g
+
+J Z: Nicholas , tell this is what you are looking for? every page has its own API Endpoint
+
+J Z: Nicholas? please answer so i leave my desk.
+
+Nicolas Benjamin Deleglise: ok, so I can get info from these apis. don't you have google API key that I can use to import into google sheet?
+
+J Z: NO.
+
+Nicolas Benjamin Deleglise: now I have source so I need destination document
+
+J Z: we the other developer. everything first go to Django
+
+Nicolas Benjamin Deleglise: ok, I will get data from those apis and put into django
+
+Nicolas Benjamin Deleglise: can you give me access to your django project? gitlab or github repo?
+
+Nicolas Benjamin Deleglise: so that you can test after I make change
+
+J Z: we cant touch it, because we still under contract with the other developer.
+
+Nicolas Benjamin Deleglise: then I can implement new feature?
+
+Nicolas Benjamin Deleglise: I need existing source code
+
+Nicolas Benjamin Deleglise: do you have access to server?
+
+J Z: we started with digital ocean where we gave him the Key
+
+Nicolas Benjamin Deleglise: I need key
+
+J Z: Yes i have but not as admin
+
+J Z: the Key for digital ocean?
+
+Nicolas Benjamin Deleglise: yes
+
+J Z: let me check
+
+Nicolas Benjamin Deleglise: and ip address
+
+Nicolas Benjamin Deleglise: please provide me all info that you gave him
+
+J Z: Nicholas, i just saw the guy is back to live on the chat in Upwork. i would like to continue with both of you and see who will get me a better program. if i give you the information will that interrupt his work? another word , will you guys be able to see each other work?
+
+Nicolas Benjamin Deleglise: no, I will just get existing codebase and work on my locaal
+
+Nicolas Benjamin Deleglise: he won't be able to see my work
+
+J Z: Very Good. let me know you are able to get it
+
+Nicolas Benjamin Deleglise: I need key file
+
+Nicolas Benjamin Deleglise: you can ask him key file and passphrase
+
+J Z: let me login and get it.
+
+Nicolas Benjamin Deleglise: okay
+
+J Z: where can i find it?
+
+Nicolas Benjamin Deleglise: you can ask him
+
+J Z: dont want to upset anyone. i would like him to finish my job as agreed. lets try to get it. i have a user and passwords to get in. do you need it
+
+J Z: see it this is what you need.
+
+Nicolas Benjamin Deleglise: now I want key file
+
+J Z: if you login you can find it.
+
+Nicolas Benjamin Deleglise: okay
+
+J Z: what is the key should start with?
+
+Nicolas Benjamin Deleglise: I will check your project again and I will be back to you
+
+J Z: Do you have doubts whether or not you can do it?
+
+J Z: Nicholas, we need to know what is the plan?
+
+Nicolas Benjamin Deleglise: no
+
+Nicolas Benjamin Deleglise: okay
+
+Nicolas Benjamin Deleglise: I can implement your requirement
+
+J Z: so what was the problem?
+
+Nicolas Benjamin Deleglise: I will check your login detail and start the work
+
+Nicolas Benjamin Deleglise: I want to discuss about shortage info with you
+
+J Z: i want you to be sure it is something that can easily be done by you.
+
+J Z: what do you mean shortage info?
+
+Nicolas Benjamin Deleglise: I am sure
+
+J Z: lets talk
+
+Nicolas Benjamin Deleglise: I have to get info from api and display it using django admin
+
+J Z: ok
+
+Nicolas Benjamin Deleglise: using digital ocean
+
+J Z: ok and..
+
+Nicolas Benjamin Deleglise: the problem is too get data from api
+
+Nicolas Benjamin Deleglise: So I want to know what api have to use
+
+J Z: can we talk
+
+Nicolas Benjamin Deleglise: yes
+
+J Z: How?
+
+Nicolas Benjamin Deleglise: I didn't understand your meaning
+
+Nicolas Benjamin Deleglise: I want to know what api have to use
+
+Nicolas Benjamin Deleglise: okay
+
+J Z: https://dev.socrata.com/foundry/data.cityofnewyork.us/636b-3b5g
+
+Nicolas Benjamin Deleglise: good,
+
+Nicolas Benjamin Deleglise: I need it
+
+J Z: Socrata.com
+
+J Z: yes
+J Z: so now we good
+
+Nicolas Benjamin Deleglise: then i can complete your project
+
+J Z: so now you are confident
+
+Nicolas Benjamin Deleglise: sure
+
+Nicolas Benjamin Deleglise: when can you send offer?
+
+J Z: if you dont mind. i will do it tomorrow. trust me the other guy also started and then i sent him day after. it look like you are a young man and i am getting tired i am almost in my 50th. what do you say? and when can we talk again tomorrow?
+
+Nicolas Benjamin Deleglise: I can balance of your time
+
+Nicolas Benjamin Deleglise: please tell me your meeting time.
+
+
+Nicolas Benjamin Deleglise: I will wait for you
+
+Nicolas Benjamin Deleglise: okay, let's discuss tomorrow
+
+J Z: i am a wake 6am but busy until 10am-10:30am . tomorrow i have outside appointment at 11am and will get back to my office at around 1:30pm
+
+Nicolas Benjamin Deleglise: okay
+
+Nicolas Benjamin Deleglise: I will wait for you
+
+J Z: Nicholas. start the job you wont be disappointed.
+
+Nicolas Benjamin Deleglise: thanks
+
+J Z: Good luck to us.
+
+J Z: and good night.
+
+Nicolas Benjamin Deleglise: I can't access your server
+
+Nicolas Benjamin Deleglise: I need ssh access
+
+Nicolas Benjamin Deleglise: or source file that you gave him
+
+J Z: i am checking
+
+Nicolas Benjamin Deleglise: okay
+
+J Z: do you know where can i find the ssh in digital ocean
+
+J Z: try this
+
+Nicolas Benjamin Deleglise: When you start work with the other, Did you give him any base code
+
+Nicolas Benjamin Deleglise: I need some base code
+
+J Z: we can open a new account if its not working.
+
+J Z: and this is what i gave him befoe
+
+Nicolas Benjamin Deleglise: okay
+
+Nicolas Benjamin Deleglise: I will check it
+
+Nicolas Benjamin Deleglise: okay
+
+Nicolas Benjamin Deleglise: I have checked it and I can work from now
+
+J Z: you able to get in to digital ocean?
+
+Nicolas Benjamin Deleglise: yes
+
+J Z: Very good.
+
+Nicolas Benjamin Deleglise: So I will start from now and I wish you send offer If you want
+
+J Z: Would like to get data form Open Data API (SODA) access to this dataset including the ability to filter, query, and aggregate data . “Document ID” in the master record is used to link all other record types to a master record. To find all of records associated with a master record, simply retrieve all records in the dataset with the same “Document ID” as the selected master record. The same process should be repeated for other Records in the Open Data.
+
+Nicolas Benjamin Deleglise: I am downloading files from server I will accept offer tomorrow so that you don't have to double spend just in case
+
+J Z: good luck.
+
+J Z: Why do you mean download file from the server?
+
+Nicolas Benjamin Deleglise: download existing source code from server
+
+J Z: Nicolas give us a little update?
+
+Nicolas Benjamin Deleglise: no
+
+Nicolas Benjamin Deleglise: I have just built django working environment
+
+Nicolas Benjamin Deleglise: and I am analising source code
+
+Nicolas Benjamin Deleglise: why?
+
+J Z: We would like to make sure you start so we wont have to send it to someone else. because you decided to accept the offer tomorrow.
+
+J Z: so far , do you have any questions?
+
+ Nicolas Benjamin Deleglise: no
+
+Nicolas Benjamin Deleglise: I have already started your project
+
+J Z: Very good thank you so much. excited to see the results.
+
+Nicolas Benjamin Deleglise: sure
+
+Nicolas Benjamin Deleglise: I won't disappoint you in your project
+
+Nicolas Benjamin Deleglise: now I am very busy now
+
+Nicolas Benjamin Deleglise: How about discuss about 4 hours later
+
+J Z: I am sure. just waiting to see how talented you are.
+
+J Z: No problem . see you in 4-5 hours.
+
+Nicolas Benjamin Deleglise: thanks
+
+J Z: you welcome
+
+Nicolas Benjamin Deleglise: Hello
+
+Nicolas Benjamin Deleglise: I am here
+
+J Z: yes Nicholas. i am back but i am leaving for soon until 9pm. what do you need?
+
+Nicolas Benjamin Deleglise: Don't worry
+
+Nicolas Benjamin Deleglise: I will fininsh your task within your deadline
+
+J Z: do you understand the part in 311 where we have the option to choose which Descriptor we need to get the data automatically and we can choose Dates in the past as well Daily ? do you understand that we need to have Google sheet where we put and Address or Boro, Block and lot and get immediately the data we need?
+
+J Z: See a test file where we want to send the information from Google sheet Boro, Block and Lot and get back the data we need from the API
+
+Nicolas Benjamin Deleglise: okay
+
+J Z: if you have any question i will be able to answer after 9pm. if you finish the task before Saturday just to let you know i am not answering any messages Friday after 2pm until Saturday 7pm eastern time.
+
+J Z: Nicholas i am leaving for one hour?
+
+Nicolas Benjamin Deleglise: okay
+
+J Z: :thumbsup:
+
+J Z: Hey Nicholas, is everything going well? do you think we should wait to the end to see if we need any slight changes or should you get us involved as you progress?
+
+Nicolas Benjamin Deleglise: Hi
+
+J Z: Hi
+
+Nicolas Benjamin Deleglise: now I am working in your project.
+
+Nicolas Benjamin Deleglise: If you want, I can show change. But I want to my working progress at the end
+
+Nicolas Benjamin Deleglise: trust me. I have already started your project and prepared all data and Api integration
+
+J Z: hoping to do more with you. thanks.
+
+Nicolas Benjamin Deleglise: thanks
+
+Nicolas Benjamin Deleglise: If I had a question, I will contact you
+
+ Nicolas Benjamin Deleglise: ok?
+
+Nicolas Benjamin Deleglise: see you later
+Nicolas Benjamin Deleglise: Its time to sleep
+
+J Z: No Problem. get some sleep. good night
+
+J Z: Good morning Nicholas, how is everything?
+
+ Nicolas Benjamin Deleglise: thanks
+
+Nicolas Benjamin Deleglise: now I am working on your project
+
+Nicolas Benjamin Deleglise: may I get data using the APIs and show them on admin? or only download filtered data as excel?
+
+J Z: we don't want to login every day to see the filtered data. we rather get the data automatically to Good sheet so we can use it with Zapier with other program. we need to be able to control from admin and see the data in both places . do you to do a online meeting where you can show your screen and we can talk at the same time?
+
+J Z: i have to leave i will be back in 45 min.
+
+Nicolas Benjamin Deleglise: Your requirements are clear for me. After I complete one of the five requirements, we can discuss about that.
+J Z: Ok.
+
+...
+
+J.Z:n the select criteria i would like to have the option of adding more Descriptor Text Value and not being limited to one at the time. also i see that in complaint type the Text value is Noise-Residential. i would like to have the option of being able to get the data also when just the Descriptor has Text Value name and the Complaint type is empty.
+
+-------------------------------------------------------------
+
