@@ -348,15 +348,16 @@ def fetch_daily(back_days):
     where_query = f"""created_date between '{start_date}' AND '{end_date}' 
             AND NOT bbl IS NULL
         """
-
     for criteria in criterias:
         if criteria.name in ['start_date', 'end_date']:
             continue
 
         query_object = get_full_query(criteria)
+        print(query_object)
         where_query += f""" AND {query_object['sign']} {query_object['name']} 
              {query_object['query']} '{query_object['text_value']}'"""
 
+    print(where_query)
     _logger.info("@fetch_daily() from {} to {}".format(start_date, end_date))
 
     with Socrata("data.cityofnewyork.us", APP_TOKEN, API_KEY, API_SECRET) as client:
@@ -392,17 +393,17 @@ def fetch_daily(back_days):
             obj, created = Complaint.objects.update_or_create(
                 bbl=complaint['bbl'],
                 defaults={
-                    "unique_key": complaint['unique_key'],
-                    "created_date": complaint['created_date'],
-                    "oldest_created_date": complaint['oldest_created_date'],
+                    "unique_key": complaint.get('unique_key'),
+                    "created_date": complaint.get('created_date'),
+                    "oldest_created_date": complaint.get('oldest_created_date'),
                     "closed_date": complaint.get('closed_date'),
-                    "agency": complaint['agency'],
-                    "complaint_type": complaint['complaint_type'],
-                    "descriptor": complaint['descriptor'],
-                    "status": complaint['status'],
-                    "incident_zip": complaint['incident_zip'],
-                    "incident_address": complaint['incident_address'],
-                    "city": complaint['city'],
+                    "agency": complaint.get('agency'),
+                    "complaint_type": complaint.get('complaint_type'),
+                    "descriptor": complaint.get('descriptor'),
+                    "status": complaint.get('status'),
+                    "incident_zip": complaint.get('incident_zip'),
+                    "incident_address": complaint.get('incident_address'),
+                    "city": complaint.get('city'),
                     "step": 0
                 })
     print(datetime.now() - time)
@@ -592,17 +593,17 @@ def fetch_from_excel(data):
         obj, created = Complaint.objects.update_or_create(
             bbl=complaint['bbl'],
             defaults={
-                "unique_key": complaint['unique_key'],
-                "created_date": complaint['created_date'],
-                "oldest_created_date": complaint['oldest_created_date'],
+                "unique_key": complaint.get('unique_key'),
+                "created_date": complaint.get('created_date'),
+                "oldest_created_date": complaint.get('oldest_created_date'),
                 "closed_date": complaint.get('closed_date'),
-                "agency": complaint['agency'],
-                "complaint_type": complaint['complaint_type'],
-                "descriptor": complaint['descriptor'],
-                "status": complaint['status'],
-                "incident_zip": complaint['incident_zip'],
-                "incident_address": complaint['incident_address'],
-                "city": complaint['city'],
+                "agency": complaint.get('agency'),
+                "complaint_type": complaint.get('complaint_type'),
+                "descriptor": complaint.get('descriptor'),
+                "status": complaint.get('status'),
+                "incident_zip": complaint.get('incident_zip'),
+                "incident_address": complaint.get('incident_address'),
+                "city": complaint.get('city'),
                 "step": 0
             })
 
@@ -614,6 +615,7 @@ def google_fetch(back_days,data):
     delete_all()
     if back_days == -10:
         print ('fetch_excel')
+        print(data,len(data))
         fetch_from_excel(data)
     else:
         print ('fetch_daily')
